@@ -1,6 +1,8 @@
 package UI;
 
+import Controller.CharaktereController;
 import Controller.ProdukteController;
+import Model.Charaktere;
 import Model.Produkte;
 
 import java.util.ArrayList;
@@ -13,9 +15,13 @@ import java.util.Scanner;
  */
 public class UI {
     private final Scanner scanner;
+
+    private final CharaktereController charaktereController;
+
     private final ProdukteController produkteController;
 
-    public UI(ProdukteController produkteController) {
+    public UI(ProdukteController produkteController, CharaktereController charaktereController) {
+        this.charaktereController = charaktereController;
         this.produkteController = produkteController;
         this.scanner = new Scanner(System.in);
     }
@@ -42,8 +48,13 @@ public class UI {
                     switchCrudProdukte();
                     break;
 
-
                 case "2":
+                    menuCRUD();
+                    switchCrudCharaktere();
+                    break;
+
+
+                case "3":
                     return;
 
                 default:
@@ -135,6 +146,119 @@ public class UI {
                     for(Produkte produkt : produkteList) {
                         System.out.println(produkt);
                     }
+
+                case "6":
+                    return;
+
+                default:
+                    System.out.println("Invalid option");
+                    return;
+            }
+        }
+    }
+
+    public void switchCrudCharaktere() {
+        String input = scanner.nextLine();
+        while (true) {
+            String name, herkunftsort;
+            List<Produkte> produkteList;
+            int id;
+            Charaktere charaktere;
+
+            switch (input) {
+                case "1":
+                    System.out.println("Id: ");
+                    id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Name: ");
+                    name = scanner.nextLine();
+
+                    System.out.println("Herkunftsort: ");
+                    herkunftsort = scanner.nextLine();
+
+                    produkteList = new ArrayList<>();
+
+                    charaktereController.add(new Charaktere(id, name, herkunftsort, produkteList));
+                    return;
+
+                case "2":
+                    System.out.println("Id: ");
+                    id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    charaktere = charaktereController.get(id);
+                    if(charaktere == null) {
+                        System.out.println("Charaktere not found");
+                    }
+                    else {
+                        System.out.println(charaktere);
+                    }
+                    return;
+
+                case "3":
+                    System.out.println("Charaktere id: ");
+                    id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    charaktere = charaktereController.get(id);
+                    if(charaktere == null) {
+                        System.out.println("Charaktere not found");
+                    }
+                    else {
+                        System.out.println(charaktere);
+                        System.out.println();
+
+                        System.out.println("New Id: ");
+                        int newId = scanner.nextInt();
+                        scanner.nextLine();
+
+                        System.out.println("New Name: ");
+                        String newName = scanner.nextLine();
+
+                        System.out.println("New Herkunftsort: ");
+                        String newHerkunftsort = scanner.nextLine();
+
+                        produkteList = new ArrayList<>();
+                        System.out.println("Select produkte with their name: (to finish selection enter a space in prompt)");
+                        System.out.println();
+
+                        List<Produkte> allProdukte = produkteController.getAll();
+                        for(Produkte produkte : allProdukte) {
+                            System.out.println(produkte);
+                        }
+                        System.out.println();
+
+                        String inputParameter = "";
+                        while (!Objects.equals(inputParameter, " ")) {
+                            inputParameter = scanner.nextLine();
+                            Produkte searchedProdukte = produkteController.get(inputParameter);
+                            if(searchedProdukte == null) {
+                                System.out.println("Produkte not found");
+                            }
+                            else {
+                                produkteList.add(searchedProdukte);
+                                System.out.println("Produkte added to charaktere list");
+                            }
+                        }
+                        charaktereController.update(charaktere, new Charaktere(newId, newName, newHerkunftsort, produkteList));
+                    }
+                    return;
+
+                case "4":
+                    System.out.println("Charaktere id: ");
+                    id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    charaktereController.delete(id);
+                    return;
+
+                case "5":
+                    List<Charaktere> charaktereList = charaktereController.getAll();
+                    for(Charaktere charaktere1 : charaktereList) {
+                        System.out.println(charaktere1);
+                    }
+                    return;
 
                 case "6":
                     return;
