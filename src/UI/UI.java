@@ -36,8 +36,7 @@ public class UI {
             System.out.println("2. Task 2");
             System.out.println("3. Task 3");
             System.out.println("4. Task 4");
-            System.out.println("5. Task 5");
-            System.out.println("6. Exit");
+            System.out.println("5. Exit");
             System.out.println("Choose: ");
             System.out.println();
             String input = scanner.nextLine();
