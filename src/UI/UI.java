@@ -53,8 +53,15 @@ public class UI {
                     switchCrudCharaktere();
                     break;
 
-
                 case "3":
+                    System.out.println();
+                    System.out.println("Give a place: ");
+                    String herkunftsregion = scanner.nextLine();
+                    System.out.println();
+                    System.out.println(charaktereController.filterByX(herkunftsregion));
+                    break;
+
+                case "4":
                     return;
 
                 default:

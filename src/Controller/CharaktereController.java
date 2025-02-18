@@ -21,24 +21,6 @@ public class CharaktereController implements IController<Charaktere, Integer> {
                 .toList();
     }
 
-    public List<Charaktere> aufgabe4(String x) {
-        return getAll().stream()
-                .filter(charaktere -> charaktere.getProdukte().stream()
-                        .anyMatch(produkte -> Objects.equals(produkte.getHerkunftsregion(), x)))
-                .toList();
-    }
-
-    public List<Produkte> aufgabe5(int id, int sort) {
-        Charaktere selectedCharaktere = charaktereRepository.get(id);
-
-        List<Produkte> produkte = selectedCharaktere.getProdukte();
-        if(sort == 1) {
-            produkte.sort(Comparator.comparingInt(Produkte::getPreis));
-        } else {
-            produkte.sort((p1, p2) -> Integer.compare(p2.getPreis(), p1.getPreis()));
-        }
-        return produkte;
-    }
 
     @Override
     public void add(Charaktere entity) {
