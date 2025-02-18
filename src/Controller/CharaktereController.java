@@ -15,9 +15,16 @@ public class CharaktereController implements IController<Charaktere, Integer> {
         this.charaktereRepository = charaktereRepository;
     }
 
-    public List<Charaktere> filterByX(String x) {
+    public List<Charaktere> filterByHerkunftsort(String x) {
         return getAll().stream()
                 .filter(charaktere -> Objects.equals(charaktere.getHerkunftsort(), x))
+                .toList();
+    }
+
+    public List<Charaktere> produkteAusDorf(String x) {
+        return getAll().stream()
+                .filter(charaktere -> charaktere.getProdukte().stream()
+                        .anyMatch(produkte -> Objects.equals(produkte.getHerkunftsregion(), x)))
                 .toList();
     }
 

@@ -58,10 +58,18 @@ public class UI {
                     System.out.println("Give a place: ");
                     String herkunftsregion = scanner.nextLine();
                     System.out.println();
-                    System.out.println(charaktereController.filterByX(herkunftsregion));
+                    System.out.println(charaktereController.filterByHerkunftsort(herkunftsregion));
                     break;
 
                 case "4":
+                    System.out.println();
+                    System.out.println("Give a place: ");
+                    String place1 = scanner.nextLine();
+                    System.out.println();
+                    System.out.println(charaktereController.produkteAusDorf(place1));
+                    break;
+
+                case "5":
                     return;
 
                 default:
